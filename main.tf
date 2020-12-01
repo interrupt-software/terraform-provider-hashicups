@@ -1,3 +1,5 @@
+# This is a test module
+
 terraform {
   required_providers {
     hashicups = {

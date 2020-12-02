@@ -4,10 +4,12 @@ terraform {
   required_providers {
     hashicups = {
       source  = "hashicorp.com/edu/hashicups"
-      version = ">= 0.2.0"
+      version = "0.2.0"
     }
   }
 }
+
+provider "hashicups" {}
 
 variable "coffee_name" {
   type    = string

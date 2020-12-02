@@ -9,7 +9,7 @@ terraform {
   }
 }
 
-provider "hashicups" {}
+# provider "hashicups" {}
 
 variable "coffee_name" {
   type    = string

@@ -3,7 +3,7 @@
 terraform {
   required_providers {
     hashicups = {
-      source  = "interrupt-software/eng/hashicups"
+      source  = "interrupt-software/eng/custom"
       version = "0.2.0"
     }
   }

@@ -1,7 +1,7 @@
 ### HashiCups
-The motivation for this exercise is to present an API service and reference the data with a private Terraform provider. In this scenario, the API service is temporarily hosted at [http://ec2-52-55-246-151.compute-1.amazonaws.com:19090/coffees](http://ec2-52-55-246-151.compute-1.amazonaws.com:19090/coffees). The intent is to use a custom-developed, Terraform provider to access the HashiCups API service and use the metadata to provision additional services.
+The motivation for this exercise is to present an API service and reference the data with a private Terraform provider. In this scenario, the API service is temporarily hosted at [http://ec2-52-55-246-151.compute-1.amazonaws.com:19090/coffees](http://ec2-52-55-246-151.compute-1.amazonaws.com:19090/coffees). The end result is the ability to use a custom-developed, Terraform provider to access the HashiCups API service, and use the metadata to provision additional services.
 
-The HashiCups example is based on the [Learn Guide] (https://learn.hashicorp.com/tutorials/terraform/provider-use?in=terraform/providers). It is assumed that we have a working provider.
+The HashiCups example is based on the [Learn Guide](https://learn.hashicorp.com/tutorials/terraform/provider-use?in=terraform/providers). It is assumed that we have a working provider.
 
 ---
 ### Registry Provider
@@ -28,7 +28,7 @@ What is relevant here is that [terraform.json](./mirror/.well-known/terraform.js
 
 ### Service Discovery
 
-Upon instantiation, the provider registry protocol will query the endpoint for any declared services. For this example we do not need to declare modules but it is included to highlight the purpose of the service desicovery use. There is a detailed section with ample detail in the [Provider Registry Protocol](https://www.terraform.io/docs/internals/provider-registry-protocol.html#service-discovery) documentation.
+Upon instantiation, the provider registry protocol will query the endpoint for any declared services. For this example we do not need to declare modules but it is included to highlight the purpose of the service discovery use. There is a detailed section with ample detail in the [Provider Registry Protocol](https://www.terraform.io/docs/internals/provider-registry-protocol.html#service-discovery) documentation.
 
 ##### .well-known/terraform.json
 
@@ -64,7 +64,7 @@ The protocol then looks for available versions of the reference provider. In our
 
 ### Provider Package
 
-Once the protocol determines that an appropriate package is potentially available, it will download the associated metadata about the distribution package. In our example this is true for [darwin/amd64](./mirror/v1/providers/seng/hashicups/0.2.0/download/darwin/amd64) and [linux/amd64](./mirror/v1/providers/seng/hashicups/0.2.0/download/linux/amd64) packages, and there need to be correspoding packages for all supported platform versions in the provider. This part is somewhat documented starting with the [Find a Provider Package section] (https://www.terraform.io/docs/internals/provider-registry-protocol.html#find-a-provider-package).
+Once the protocol determines that an appropriate package is potentially available, it will download the associated metadata about the distribution package. In our example this is true for [darwin/amd64](./mirror/v1/providers/seng/hashicups/0.2.0/download/darwin/amd64) and [linux/amd64](./mirror/v1/providers/seng/hashicups/0.2.0/download/linux/amd64) packages, and there need to be corresponding packages for all supported platform versions in the provider. This part is somewhat documented starting with the [Find a Provider Package section] (https://www.terraform.io/docs/internals/provider-registry-protocol.html#find-a-provider-package).
 
 ##### v1/providers/seng/hashicups/0.2.0/download/darwin/amd64
 
@@ -97,7 +97,6 @@ Once the protocol determines that an appropriate package is potentially availabl
 ```
 
 For the request to function properly, the protocol requires appropriate entries for the `shasums_url`, `shasums_signature_url`, `shasum` and each binary must be satisfactorily digitally signed. The required properties are documented in the [Response Properties](https://www.terraform.io/docs/internals/provider-registry-protocol.html#response-properties-1) section.
-
 
 It is important to note that these are relative paths to the same provider endpoint. The payload maps directly to the `download_url`, `shasums_signature_url ` and `shasums_url` in the corresponding reference in the provider. These files can be shared from any independent location, like a GitHub repo, and can be arbitrarily hosted. In this example, the location is relative to the hosting endpoint.
 
@@ -139,13 +138,13 @@ We generate SHA256 Check Sum for the compressed binary that is distributed.
 ```
 shasum -a 256 terraform-provider-hashicups_0.2.0_darwin_amd64.zip > terraform-provider-hashicups_0.2.0_SHA256SUMS
 ```
-The contents of the `SHA256SUMS` should reflect something like this. The SHA256SUMS also populates the `shasum` field in the package metadata.
+The SHA256SUMS also populates the `shasum` field in the package metadata. The contents of the `SHA256SUMS` should reflect something like this.
 
 ```
 fc7355d19ba718760f780213ea2fb4310882180423e4f027ed8bbf2e2380d851  terraform-provider-hashicups_0.2.0_darwin_amd64.zip
 ```
 ##### Sign the SHA256SUMS
-We then use the GPG key to sign the SHA256SUMS file. It is important to share that I encountered some issues with the key signing. The Terraform Provider complained about having a bad signature. After a bit of magic, the work-around that fillfilled was to use a detached the signature from the original document.
+We then use the GPG key to sign the SHA256SUMS file. It is important to share that we might encounter some issues with the key signing. The Terraform Provider might complain about having a bad signature. After a bit of search magic, the work-around that is to use a detached the signature from the original document.
 
 ```
 gpg --output terraform-provider-hashicups_0.2.0_SHA256SUMS.sig --clear-sign terraform-provider-hashicups_0.2.0_SHA256SUMS
@@ -162,7 +161,7 @@ gpg: Good signature from "G Castillo <gilberto@hashicorp.com>" [ultimate]
 
 ### Preparing and Adding a Signing Key
 
-https://www.terraform.io/docs/registry/providers/publishing.html#preparing-and-adding-a-signing-key
+In the documentation, it is infeferred that we need to sumbmit our signing information to registry.terraform.io before using the provider. However, that is not so with a private emulation of the Registry Provider. The information cannot be ommitted from the provider package. See more in the [documentation](https://www.terraform.io/docs/registry/providers/publishing.html#preparing-and-adding-a-signing-key).
 
 ```
 gpg --armor --export gilberto@hashicorp.com
@@ -207,7 +206,7 @@ mirror
 
 ### Populating the provider endpoint
 
-In this example, we are borrowing from [Tom Straub's example] (https://github.com/straubt1/terraform-network-mirror/blob/main/aws/main.tf) to populate an S3 bucket and use that endpoint as the entry point for the providers URL. We are making a minor change in the S3 bucket name to reflect our own identity and then pushing the contents [mirror](./mirror) folder.
+In this example, we are borrowing from [Tom Straub's brilliant example](https://github.com/straubt1/terraform-network-mirror/blob/main/aws/main.tf) to populate an S3 bucket and use that endpoint as the entry point for the providers URL. We are making a minor change in the S3 bucket name to reflect our own identity and then pushing the contents [mirror](./mirror) folder.
 
 ```
 locals {
@@ -223,7 +222,7 @@ locals {
 
 ...
 ```
-Once we have all of the assets ready, we can then create our blob using the given code. The end result is an URL to the required assets. In this case the endpoint is [https://interrupt-software.s3.amazonaws.com/] (https://interrupt-software.s3.amazonaws.com).
+Once we have all of the assets ready, we can then create our blob using the given code. The end result is an URL to the required assets. In this case the endpoint is [https://interrupt-software.s3.amazonaws.com/](https://interrupt-software.s3.amazonaws.com).
 
 ![](images/Screen_Recording_2020-12-07_02.gif)
 
@@ -251,7 +250,7 @@ Through the initialization of the provider we observe the `init` and `apply` seq
 ---
 ##### Terraform Cloud
 
-Introducing the same code into a [generic repository] (https://github.com/interrupt-software/hashicups), we align the repo against a Terraform Cloud workspace. When triggering a change to the repository, we can observe the generation of work within Terraform Cloud.
+Introducing the same code into a [generic repository](https://github.com/interrupt-software/hashicups), we align the repo against a Terraform Cloud workspace. When triggering a change to the repository, we can observe the generation of work within Terraform Cloud.
 
 ![](images/Screen_Recording_2020-12-07_04.gif)
 

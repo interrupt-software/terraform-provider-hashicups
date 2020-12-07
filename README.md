@@ -1,10 +1,10 @@
-###HashiCups
+### HashiCups
 The motivation for this exercise is to present an API service and reference the data with a private Terraform provider. In this scenario, the API service is temporarily hosted at [http://ec2-52-55-246-151.compute-1.amazonaws.com:19090/coffees] (http://ec2-52-55-246-151.compute-1.amazonaws.com:19090/coffees). The intent is to use a custom-developed, Terraform provider to access the HashiCups API service and use the metadata to provision additional services.
 
 The HashiCups example is based on the [Learn Guide] (https://learn.hashicorp.com/tutorials/terraform/provider-use?in=terraform/providers). It is assumed that we have a working provider.
 
 ---
-###Registry Provider
+### Registry Provider
 The structure for the private Registry Provider is as follows:
 
 ```
@@ -26,11 +26,11 @@ mirror
 ```
 What is relevant here is that [terraform.json](./mirror/.well-known/terraform.json), [versions](./mirror/v1/providers/seng/hashicups/versions), [darwin/amd64](./mirror/v1/providers/seng/hashicups/0.2.0/download/darwin/amd64) and [linux/amd64](./mirror/v1/providers/seng/hashicups/0.2.0/download/linux/amd64) are all JSON-formatted files that provide metadata to the provider.
 
-###Service Discovery
+### Service Discovery
 
 Upon instantiation, the provider registry protocol will query the endpoint for any declared services. For this example we do not need to declare modules but it is included to highlight the purpose of the service desicovery use. There is a detailed section with ample detail in the [Provider Registry Protocol](https://www.terraform.io/docs/internals/provider-registry-protocol.html#service-discovery) documentation.
 
-#####.well-known/terraform.json
+##### .well-known/terraform.json
 
 ```
 {
@@ -39,11 +39,11 @@ Upon instantiation, the provider registry protocol will query the endpoint for a
 }
 ```
 
-###List Available Versions
+### List Available Versions
 
 The protocol then looks for available versions of the reference provider. In our example, the provider is explictly looking for `seng/hashicups` on the URL endpoint. Thus we are declaring what is available so the protocol is able to introspect the request. If we were to request the provider for a `linux/bsd` platform, or something outside of the `0.2.0` version, then the request should fail. This is illustrated in the documentation under [List Available Sections](https://www.terraform.io/docs/internals/provider-registry-protocol.html#provider-versions).
 
-#####v1/providers/seng/hashicups/versions
+##### v1/providers/seng/hashicups/versions
 
 ```
 {
@@ -62,11 +62,11 @@ The protocol then looks for available versions of the reference provider. In our
 }
 ```
 
-###Provider Package
+### Provider Package
 
 Once the protocol determines that an appropriate package is potentially available, it will download the associated metadata about the distribution package. In our example this is true for [darwin/amd64](./mirror/v1/providers/seng/hashicups/0.2.0/download/darwin/amd64) and [linux/amd64](./mirror/v1/providers/seng/hashicups/0.2.0/download/linux/amd64) packages, and there need to be correspoding packages for all supported platform versions in the provider. This part is somewhat documented starting with the [Find a Provider Package section] (https://www.terraform.io/docs/internals/provider-registry-protocol.html#find-a-provider-package).
 
-#####v1/providers/seng/hashicups/0.2.0/download/darwin/amd64
+##### v1/providers/seng/hashicups/0.2.0/download/darwin/amd64
 
 ```
 {
@@ -119,7 +119,7 @@ mirror
 │                   └── terraform-provider-hashicups_0.2.0_linux_amd64.zip
 ```
 
-###Fillin in the Response Properties
+### Fillin in the Response Properties
 
 For this example, we generated a testing GPG key to sign our content.
 
@@ -160,7 +160,7 @@ gpg:                using RSA key FB844BE5D8887127AC354CC4B271********D72C
 gpg: Good signature from "G Castillo <gilberto@hashicorp.com>" [ultimate]
 ```
 
-###Preparing and Adding a Signing Key
+### Preparing and Adding a Signing Key
 
 https://www.terraform.io/docs/registry/providers/publishing.html#preparing-and-adding-a-signing-key
 
@@ -205,7 +205,7 @@ mirror
 
 ```
 
-###Populating the provider endpoint
+### Populating the provider endpoint
 
 In this example, we are borrowing from [Tom Straub's example] (https://github.com/straubt1/terraform-network-mirror/blob/main/aws/main.tf) to populate an S3 bucket and use that endpoint as the entry point for the providers URL. We are making a minor change in the S3 bucket name to reflect our own identity and then pushing the contents [mirror](./mirror) folder.
 
@@ -228,7 +228,7 @@ Once we have all of the assets ready, we can then create our blob using the give
 ![](images/Screen_Recording_2020-12-07_02.gif)
 
 ---
-###Testing the provider registry
+### Testing the provider registry
 
 ##### Terraform OSS
 

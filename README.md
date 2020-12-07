@@ -1,7 +1,7 @@
 ### HashiCups
 The motivation for this exercise is to present an API service and reference the data with a private Terraform provider. In this scenario, the API service is temporarily hosted at [http://ec2-52-55-246-151.compute-1.amazonaws.com:19090/coffees](http://ec2-52-55-246-151.compute-1.amazonaws.com:19090/coffees). The end result is the ability to use a custom-developed, Terraform provider to access the HashiCups API service, and use the metadata to provision additional services.
 
-The HashiCups example is based on the [Learn Guide](https://learn.hashicorp.com/tutorials/terraform/provider-use?in=terraform/providers). It is assumed that we have a working provider.
+The HashiCups example is based on the Call APIs with Terraform Providers [Learn Guide](https://learn.hashicorp.com/tutorials/terraform/provider-use?in=terraform/providers). It is assumed that we have a working provider.
 
 ---
 ### Registry Provider

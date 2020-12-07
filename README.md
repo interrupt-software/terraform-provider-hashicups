@@ -64,7 +64,7 @@ The protocol then looks for available versions of the reference provider. In our
 
 ### Provider Package
 
-Once the protocol determines that an appropriate package is potentially available, it will download the associated metadata about the distribution package. In our example this is true for [darwin/amd64](./mirror/v1/providers/seng/hashicups/0.2.0/download/darwin/amd64) and [linux/amd64](./mirror/v1/providers/seng/hashicups/0.2.0/download/linux/amd64) packages, and there need to be corresponding packages for all supported platform versions in the provider. This part is somewhat documented starting with the [Find a Provider Package section] (https://www.terraform.io/docs/internals/provider-registry-protocol.html#find-a-provider-package).
+Once the protocol determines that an appropriate package is potentially available, it will download the associated metadata about the distribution package. In our example this is true for [darwin/amd64](./mirror/v1/providers/seng/hashicups/0.2.0/download/darwin/amd64) and [linux/amd64](./mirror/v1/providers/seng/hashicups/0.2.0/download/linux/amd64) packages, and there need to be corresponding packages for all supported platform versions in the provider. This part is somewhat documented starting with the [Find a Provider Package section](https://www.terraform.io/docs/internals/provider-registry-protocol.html#find-a-provider-package).
 
 ##### v1/providers/seng/hashicups/0.2.0/download/darwin/amd64
 
@@ -169,7 +169,7 @@ gpg --armor --export gilberto@hashicorp.com
 
 The generated public key should be formatted to fit into the provider package file. For instance, removing the end of line carriage return and replacing it with `\n` characaters instead using a regular expression.
 
-![Screen_Recording_2020-12-07_01.gif] (images/Screen_Recording_2020-12-07_01.gif)
+![Screen_Recording_2020-12-07_01.gif](images/Screen_Recording_2020-12-07_01.gif)
 
 The final hierarchy for the mirror is as follows:
 

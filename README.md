@@ -118,7 +118,7 @@ mirror
 │                   └── terraform-provider-hashicups_0.2.0_linux_amd64.zip
 ```
 
-### Fillin in the Response Properties
+### Filling in the Response Properties
 
 For this example, we generated a testing GPG key to sign our content.
 
@@ -206,7 +206,7 @@ mirror
 
 ### Populating the provider endpoint
 
-In this example, we are borrowing from [Tom Straub's brilliant example](https://github.com/straubt1/terraform-network-mirror/blob/main/aws/main.tf) to populate an S3 bucket and use that endpoint as the entry point for the providers URL. We are making a minor change in the S3 bucket name to reflect our own identity and then pushing the contents [mirror](./mirror) folder.
+In this example, we are borrowing from [Tom Straub's brilliant example](https://github.com/straubt1/terraform-network-mirror/blob/main/aws/main.tf) to populate an S3 bucket and use that endpoint as the entry point for the providers URL. We are making a minor change in the S3 bucket name to reflect our own identity and then pushing the contents of the [mirror](./mirror) folder.
 
 ```
 locals {
@@ -231,7 +231,7 @@ Once we have all of the assets ready, we can then create our blob using the give
 
 ##### Terraform OSS
 
-The intent is to reference the provider without any localized depencendies. In this case, there is no `.terraformrc` and or environment variables to override the default download location of the provider. The essential reference in the [main.tf](./hashicups-cli/main.tf) is the following block.
+The intent is to reference the provider without any localized dependencies. In this case, there is no `.terraformrc` or environment variables to override the default download location of the provider. The essential reference in the [main.tf](./hashicups-cli/main.tf) is the following block.
 
 ```
 terraform {

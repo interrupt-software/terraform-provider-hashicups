@@ -167,7 +167,7 @@ In the documentation, it is infeferred that we need to sumbmit our signing infor
 gpg --armor --export gilberto@hashicorp.com
 ```
 
-The generated public key should be formatted to fit into the provider package file. For instance, removing the end of line carriage return and replacing it with `\n` characters instead using a regular expression.
+The generated public key should be formatted to fit into the provider package file. For instance, removing the natural end of line carriage return and replacing it with literal `\n` characters instead using a regular expression.
 
 ![Screen_Recording_2020-12-07_01.gif](images/Screen_Recording_2020-12-07_01.gif)
 

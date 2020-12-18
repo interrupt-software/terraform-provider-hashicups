@@ -147,7 +147,7 @@ fc7355d19ba718760f780213ea2fb4310882180423e4f027ed8bbf2e2380d851  terraform-prov
 We then use the GPG key to sign the SHA256SUMS file. It is important to share that we might encounter some issues with the key signing. The Terraform Provider might complain about having a bad signature. After a bit of search magic, the work-around that is to use a detached the signature from the original document.
 
 ```
-gpg --output terraform-provider-hashicups_0.2.0_SHA256SUMS.sig --clear-sign terraform-provider-hashicups_0.2.0_SHA256SUMS
+gpg --output terraform-provider-hashicups_0.2.0_SHA256SUMS.sig -b terraform-provider-hashicups_0.2.0_SHA256SUMS
 ```
 Alway verify that the signature is valid:
 

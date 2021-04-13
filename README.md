@@ -24,7 +24,7 @@ mirror
                 │           └── amd64
                 └── versions
 ```
-What is relevant here is that [terraform.json](./mirror/.well-known/terraform.json), [versions](./mirror/v1/providers/seng/hashicups/versions), [darwin/amd64](./mirror/v1/providers/seng/hashicups/0.2.0/download/darwin/amd64) and [linux/amd64](./mirror/v1/providers/seng/hashicups/0.2.0/download/linux/amd64) are all JSON-formatted files that provide metadata to the provider.
+The relevance is that [terraform.json](./mirror/.well-known/terraform.json), [versions](./mirror/v1/providers/seng/hashicups/versions), [darwin/amd64](./mirror/v1/providers/seng/hashicups/0.2.0/download/darwin/amd64) and [linux/amd64](./mirror/v1/providers/seng/hashicups/0.2.0/download/linux/amd64) are all JSON-formatted files that provide metadata to the provider.
 
 ### Service Discovery
 
